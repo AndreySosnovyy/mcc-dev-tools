@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# commit-msg — проверка сообщения коммита через commitlint
+# Установлен через MCC dev tools (github.com/AndreySosnovyy/mcc-dev-tools)
+
+# Ищем commitlint: локальный → глобальный → npx → пропускаем
+if [[ -f "node_modules/.bin/commitlint" ]]; then
+  node_modules/.bin/commitlint --edit "$1"
+elif command -v commitlint &> /dev/null; then
+  commitlint --edit "$1"
+elif command -v npx &> /dev/null; then
+  npx --no-install commitlint --edit "$1"
+else
+  # commitlint не установлен — не блокируем, предупреждаем
+  echo "[MCC] commitlint не найден, проверка пропущена. Запусти setup-dev.sh."
+  exit 0
+fi
