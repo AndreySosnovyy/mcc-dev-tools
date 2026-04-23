@@ -49,6 +49,8 @@ For full architecture details, the user can run `mcc mr-template list` (Slack) o
    - Success + review OK
    - Success + `cc noreview` (no review section)
    - Review failed (timeout / spawn error / cancelled by user)
+   - **v2:** Review completed with partial output (`review_was_partial=true`) — your template should render the partial text inside a collapsible and show a clear marker (в default.md это строка «Review не уложился в отведённое время ({{review_timeout_sec}}s), показан частичный результат»). See how `default.md` does it with `{{#review_was_partial}}`.
+   - **v2:** Review skipped for generated-only diff (`review_skipped_generated=true`) — brief notice instead of the full review section.
    - Retry of a previous task
    - Target override (`cc target=develop`)
    - Multi-commit MR (the trick `{{#commit_messages_all.1}}` shows the list only when ≥2 commits)

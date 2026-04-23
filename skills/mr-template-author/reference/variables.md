@@ -3,7 +3,7 @@
 > Auto-generated from `slack-bot/src/mrTemplateVars.js` (SCHEMA).
 > Не редактируй вручную — пересобери через `node scripts/gen-template-vars-docs.js`.
 
-Всего плейсхолдеров: **53**.
+Всего плейсхолдеров: **57**.
 
 ## Синтаксис
 
@@ -81,15 +81,19 @@
 | Плейсхолдер | Тип | Обяз. | Пример | Описание |
 |---|---|---|---|---|
 | `{{review_enabled}}` | boolean | да | `true` | Был ли review запланирован |
-| `{{review_status}}` | string | да | `success` | success / noreview / skipped / timeout / failed / null |
+| `{{review_status}}` | string | да | `success` | v1: success / noreview / skipped / timeout / failed / push_failed. v2 дополнительно: timeout_with_partial / cancelled_with_partial / skipped_generated / skipped_config_off / no_response |
 | `{{review_status_ok}}` | boolean | да | `true` | Derived: review прошёл успешно |
 | `{{review_reason_human}}` | string | нет | `превысил лимит времени` | Человекочитаемая причина fail/skip |
 | `{{review_duration_sec}}` | number | нет | `8` | Время выполнения review (сек) |
-| `{{review_timeout_sec}}` | number | да | `120` | Timeout review (120 или 300) |
+| `{{review_timeout_sec}}` | number | да | `180` | Timeout review в секундах. v2: category-driven (60/90/180/360) + bigreview promotion (может быть до 480). v1 fallback: 180 default, 300 с bigreview |
 | `{{review_model}}` | string | да | `opus` | Модель для review |
 | `{{review_text_full}}` | string | нет | `### Findings
 …` | Полный markdown от Opus (sanitized) |
 | `{{review_cancelled_by_user}}` | boolean | да | `false` | Был ли review отменён пользователем |
+| `{{review_was_partial}}` | boolean | да | `false` | Review v2: partial output из-за timeout (использован partial.md) |
+| `{{review_skipped_generated}}` | boolean | да | `false` | Review v2: skip при noop + skip_generated_only=true |
+| `{{review_generated_files_count}}` | number | нет | `3` | Review v2: количество сгенерированных файлов если skipped_generated |
+| `{{review_category}}` | string | нет | `medium` | Review v2: вычисленная category (trivial/small/medium/large/dependency-only/tests-only) |
 
 ### Cost / tokens
 
