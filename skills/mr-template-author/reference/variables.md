@@ -81,11 +81,11 @@
 | Плейсхолдер | Тип | Обяз. | Пример | Описание |
 |---|---|---|---|---|
 | `{{review_enabled}}` | boolean | да | `true` | Был ли review запланирован |
-| `{{review_status}}` | string | да | `success` | v1: success / noreview / skipped / timeout / failed / push_failed. v2 дополнительно: timeout_with_partial / cancelled_with_partial / skipped_generated / skipped_config_off / no_response |
+| `{{review_status}}` | string | да | `success` | success / noreview / skipped / skipped_config_off / skipped_generated / timeout / timeout_with_partial / cancelled_with_partial / failed / push_failed / null |
 | `{{review_status_ok}}` | boolean | да | `true` | Derived: review прошёл успешно |
 | `{{review_reason_human}}` | string | нет | `превысил лимит времени` | Человекочитаемая причина fail/skip |
 | `{{review_duration_sec}}` | number | нет | `8` | Время выполнения review (сек) |
-| `{{review_timeout_sec}}` | number | да | `180` | Timeout review в секундах. v2: category-driven (60/90/180/360) + bigreview promotion (может быть до 480). v1 fallback: 180 default, 300 с bigreview |
+| `{{review_timeout_sec}}` | number | да | `180` | Timeout review в секундах. Category-driven (trivial=60 / small=90 / medium=180 / large=360 / dep-only=60 / tests-only=120 / noop=30). cc bigreview promote'ит category + увеличивает timeout (до 480 на large) |
 | `{{review_model}}` | string | да | `opus` | Модель для review |
 | `{{review_text_full}}` | string | нет | `### Findings
 …` | Полный markdown от Opus (sanitized) |
