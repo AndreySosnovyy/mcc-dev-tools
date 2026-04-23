@@ -120,15 +120,48 @@ sync-claude
 
 ---
 
+## Claude Code skills
+
+Reusable Claude Code skills you can install into your local `~/.claude/skills/`. Once installed, Claude Code activates them automatically based on the skill description when you ask relevant questions.
+
+### Available skills
+
+| Skill | Purpose |
+|---|---|
+| `mr-template-author` | Author or modify MCC-compatible MR description templates (Mustache). Use when you want to customize how Draft MRs created by `cc <task>` look in GitLab. |
+
+### Install
+
+Requirements: `git`, `curl`.
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/AndreySosnovyy/mcc-dev-tools/main/scripts/install-skill.sh) mr-template-author
+```
+
+The script clones `mcc-dev-tools` (shallow), copies the skill to `~/.claude/skills/<skill-name>/`, and backs up any previous version. Restart Claude Code (or open a new session) for the skill to be picked up.
+
+To install a different skill, replace `mr-template-author` with the skill name. Run without arguments to see the list:
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/AndreySosnovyy/mcc-dev-tools/main/scripts/install-skill.sh)
+```
+
+After install, just describe what you want in Claude Code — e.g. "create an MR template for project X with focus on test coverage" — the skill activates automatically.
+
+---
+
 ## Contents
 
 ```
 scripts/
   setup.sh          — Flutter project setup (commit hook, commitlint, git alias)
   sync-claude.sh    — sync ~/.claude/ to MCC server over SSH
+  install-skill.sh  — install a Claude Code skill into ~/.claude/skills/
 hooks/
   commit-msg        — Conventional Commits git hook
 config/
   commitlint.config.js  — commitlint rules
+skills/
+  mr-template-author/   — author MCC MR description templates (Mustache)
 VERSION             — current version
 ```
